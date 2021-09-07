@@ -6,6 +6,7 @@ import {
   StyledCard,
   StyledCardFooter,
   StyledCardHeader,
+  CardTitle,
 } from "./styles";
 function Card({ children }) {
   return <StyledCard>{children}</StyledCard>;
@@ -58,5 +59,6 @@ CardHeader.propTypes = {
 Card.Footer = CardFooter;
 Card.Header = CardHeader;
 Card.Content = CardContent;
+Card.Title = CardTitle;
 
 export default Card;
