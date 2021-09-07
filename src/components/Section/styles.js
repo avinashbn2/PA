@@ -1,14 +1,6 @@
 import styled from "styled-components";
 import { Column, Row, Text } from "../shared/styles";
 
-const fontSizes = {
-  xl: "18px",
-  lg: "16px",
-  md: "14px",
-  sm: "12px",
-  xs: "10px",
-};
-
 const colors = {
   default: "#8c92ac",
   active: "#36454f",
