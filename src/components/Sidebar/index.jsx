@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useContext } from "react";
+import React, { useCallback, useContext } from "react";
 import PropTypes from "prop-types";
 import { StyledSidebar, StyledRoutes } from "./styles";
 import ListItem from "../ListItem";

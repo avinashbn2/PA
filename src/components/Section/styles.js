@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Column, Row, Text } from "../shared/styles";
+import { Row, Text } from "../shared/styles";
 import Scrollbar from "react-perfect-scrollbar";
 
 const colors = {
@@ -29,7 +29,7 @@ export const StyledSection = styled(Scrollbar)`
   padding-top: 8px;
   padding-bottom: 8px;
   overflow-y: scroll;
-  height: calc(100% - 100px);
+  height: calc(100vh - 100px);
 `;
 export const SectionHeader = styled(Row)`
   background-color: #f2f2f4;

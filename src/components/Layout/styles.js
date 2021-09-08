@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { device } from "utils/device";
 
 export const StyledLayout = styled.div`
   height: 100%;
