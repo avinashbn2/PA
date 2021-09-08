@@ -1,6 +1,6 @@
 import React from "react";
 
-import { FaCog, FaHome, FaClock } from "react-icons/fa";
+import { routes } from "../../utils/routeConfig";
 import Sidebar from "./index";
 
 //👇 This default export determines where your story goes in the story list
@@ -9,11 +9,6 @@ export default {
   component: Sidebar,
 };
 
-const routes = [
-  { name: "Projects", path: "/projects", icon: <FaHome /> },
-  { name: "Timers", path: "/timers", icon: <FaClock /> },
-  { name: "Settings", path: "/settings", icon: <FaCog /> },
-];
 //👇 We create a “template” of how args map to rendering
 const Template = (args) => <Sidebar routes={routes} activeRoute="Settings" />;
 

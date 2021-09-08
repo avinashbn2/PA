@@ -14,7 +14,7 @@ const colors = {
   active: "#36454f",
 };
 export const StyledListItem = styled(Row)`
-  padding: 8px;
+  padding: 12px;
   font-size: ${(p) => fontSizes[p.fontSize || "md"]};
   color: ${(p) => (p.active ? colors.active : colors.default)};
   letter-spacing: 0.03em;

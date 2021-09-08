@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { Column, Row, Text } from "../shared/styles";
+import Scrollbar from "react-perfect-scrollbar";
 
 const colors = {
   default: "#8c92ac",
@@ -13,15 +14,22 @@ export const Container = styled.section`
   min-width: 250px;
   background-color: #f5f9fa;
   color: ${colors.active};
+  overflow: hidden;
 
   &:selection {
     background-color: aqua;
   }
 `;
-export const StyledSection = styled(Column)`
+export const StyledSection = styled(Scrollbar)`
+  display: flex;
+
+  flex-direction: column;
   gap: 20px;
   align-items: flex-start;
   padding-top: 8px;
+  padding-bottom: 8px;
+  overflow-y: scroll;
+  height: calc(100% - 100px);
 `;
 export const SectionHeader = styled(Row)`
   background-color: #f2f2f4;
@@ -29,6 +37,7 @@ export const SectionHeader = styled(Row)`
   align-items: center;
   padding: 8px 8px;
   border-radius: 8px;
+  height: 24px;
 `;
 export const SectionTitle = styled(Text)`
   font-weight: bold;

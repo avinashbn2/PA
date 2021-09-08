@@ -32,10 +32,10 @@ function CardContent({ children }) {
 }
 
 Card.propTypes = {
-  children: PropTypes.oneOf(
+  children: PropTypes.oneOf([
     PropTypes.arrayOf([PropTypes.node]),
-    PropTypes.node
-  ),
+    PropTypes.node,
+  ]),
 };
 
 CardFooter.propTypes = {

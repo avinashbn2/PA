@@ -15,6 +15,12 @@ export const StyledCard = styled.div`
   &:hover {
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.15), 2px 2px 8px rgba(0, 0, 0, 0.25);
   }
+
+  display: grid;
+  grid-template-rows: 30px 1fr 40px;
+  grid-template-columns: 1fr;
+
+  grid-template-areas: "header" "content " "footer";
 `;
 
 export const StyledCardFooter = styled.div`
@@ -23,6 +29,7 @@ export const StyledCardFooter = styled.div`
   align-items: ${(p) => p.align};
   padding: 8px 8px 16px 8px;
   width: fill-available;
+  grid-area: footer;
 `;
 
 export const StyledCardHeader = styled.div`
@@ -30,6 +37,7 @@ export const StyledCardHeader = styled.div`
   justify-content: ${(p) => p.justify};
   align-items: ${(p) => p.align};
   padding: 8px;
+  grid-area: header;
   & > svg {
     color: #cecece;
   }
@@ -37,21 +45,13 @@ export const StyledCardHeader = styled.div`
 
 export const StyledContent = styled.div`
   padding: 12px 8px;
-  height: calc((100%) - 110px);
+  // height: 100%;
+  grid-area: content;
 `;
 
 export const CardTitle = styled(Text)`
   display: block;
-  padding: 4px 0px 8px 0px;
+  padding: 10px 0px 8px 0px;
   font-weight: bold;
   position: relative;
-  &::after {
-    content: "";
-    width: 100%;
-    height: 1px;
-    background-color: #cecece;
-    position: absolute;
-    left: 0px;
-    bottom: 4px;
-  }
 `;

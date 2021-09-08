@@ -7,6 +7,7 @@ import {
   SectionTitle,
 } from "./styles";
 import Chip from "../Chip";
+import "scrollbar.css";
 
 function Section({ children, title, count }) {
   return (

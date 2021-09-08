@@ -1,21 +1,36 @@
-import React from "react";
+import React, { useState, useCallback, useContext } from "react";
 import PropTypes from "prop-types";
-import { StyledSidebar } from "./styles";
+import { StyledSidebar, StyledRoutes } from "./styles";
 import ListItem from "../ListItem";
+import Brand from "components/Brand";
+import { MdMenu, MdClose } from "react-icons/md";
+import SidebarContext from "contexts/sidebar";
 
 function Sidebar({ onClick, routes, activeRoute }) {
+  const { openSidebar, setOpenSidebar } = useContext(SidebarContext);
+  const toggleOpen = useCallback(() => {
+    setOpenSidebar((o) => !o);
+  }, [setOpenSidebar]);
   return (
     <StyledSidebar>
-      {routes.map((route) => (
-        <ListItem
-          acitve={route.name === activeRoute}
-          key={route.name}
-          onClick={onClick}
-          icon={route.icon}
-        >
-          {route.name}
-        </ListItem>
-      ))}
+      {openSidebar ? (
+        <MdMenu onClick={toggleOpen} />
+      ) : (
+        <MdClose onClick={toggleOpen} />
+      )}
+      <Brand title="LOGO" />
+      <StyledRoutes open={openSidebar}>
+        {routes.map((route) => (
+          <ListItem
+            acitve={route.path === activeRoute}
+            key={route.name}
+            onClick={onClick}
+            icon={route.icon}
+          >
+            {route.name}
+          </ListItem>
+        ))}
+      </StyledRoutes>
     </StyledSidebar>
   );
 }

@@ -12,10 +12,10 @@ export default {
 export const Template = (args) => (
   <Card {...args}>
     <Card.Header justify="flex-end">
+      <Card.Title>Design</Card.Title>
       <FaEllipsisV />
     </Card.Header>
     <Card.Content>
-      <Card.Title>Design</Card.Title>
       We need to design all our components and create storybook, before we
       starting working on state managment, handling data, testing etc
     </Card.Content>
