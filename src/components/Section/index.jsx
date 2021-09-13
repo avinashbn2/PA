@@ -9,9 +9,9 @@ import {
 import Chip from "../Chip";
 import "scrollbar.css";
 
-function Section({ children, title, count }) {
+function Section({ children, title, count, innerRef, ...otherProps }) {
   return (
-    <Container>
+    <Container ref={innerRef} {...otherProps}>
       <SectionHeader justify="space-between" align="center" bgColor="#F4F5F7">
         <SectionTitle>{title}</SectionTitle>
         <Chip size="sm" color="#36454f">

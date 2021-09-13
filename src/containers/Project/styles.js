@@ -1,16 +1,20 @@
 import styled from "styled-components";
-import { Row } from "components/shared/styles";
 import { device } from "utils/device";
+import Scrollbar from "react-perfect-scrollbar";
 
-export const StyledProject = styled(Row)`
+export const StyledProject = styled(Scrollbar)`
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+
   padding: 8px;
   background-color: #fefefe;
-  width: 100%;
   height: 100%;
+  overflow-x: scroll;
+
+  width: 100vw;
   @media ${device.mobileS} {
-    width: 100%;
     flex-direction: column;
-    flex-wrap: wrap;
     gap: 8px;
     align-items: center;
   }

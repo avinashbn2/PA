@@ -8,8 +8,12 @@ import {
   StyledCardHeader,
   CardTitle,
 } from "./styles";
-function Card({ children }) {
-  return <StyledCard>{children}</StyledCard>;
+function Card({ innerRef, children, ...otherProps }) {
+  return (
+    <StyledCard ref={innerRef} {...otherProps}>
+      {children}
+    </StyledCard>
+  );
 }
 
 function CardHeader({ children, align = "center", justify = "space-between" }) {

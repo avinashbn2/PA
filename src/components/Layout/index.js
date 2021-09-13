@@ -8,7 +8,7 @@ import Sidebar from "components/Sidebar";
 import { useLocation } from "react-router-dom";
 import Header from "components/Header";
 function Layout({ children }) {
-  const [openSidebar, setOpenSidebar] = useState(false);
+  const [openSidebar, setOpenSidebar] = useState(true);
   const location = useLocation();
   return (
     <SidebarContext.Provider value={{ openSidebar, setOpenSidebar }}>

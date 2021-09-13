@@ -5,12 +5,28 @@ import ListItem from "../ListItem";
 import Brand from "components/Brand";
 import { MdMenu, MdClose } from "react-icons/md";
 import SidebarContext from "contexts/sidebar";
+import { useHistory } from "react-router-dom";
+import { useMediaQuery } from "react-responsive";
 
 function Sidebar({ onClick, routes, activeRoute }) {
   const { openSidebar, setOpenSidebar } = useContext(SidebarContext);
+  const history = useHistory();
+  const isMobile = useMediaQuery({ query: "(max-width: 600px)" });
+
   const toggleOpen = useCallback(() => {
     setOpenSidebar((o) => !o);
   }, [setOpenSidebar]);
+  if (isMobile) {
+    return (
+      <>
+        {openSidebar ? (
+          <MdMenu onClick={toggleOpen} />
+        ) : (
+          <MdClose onClick={toggleOpen} />
+        )}
+      </>
+    );
+  }
   return (
     <StyledSidebar>
       {openSidebar ? (
@@ -24,7 +40,7 @@ function Sidebar({ onClick, routes, activeRoute }) {
           <ListItem
             acitve={route.path === activeRoute}
             key={route.name}
-            onClick={onClick}
+            onClick={() => history.push(route.path)}
             icon={route.icon}
           >
             {route.name}

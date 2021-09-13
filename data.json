@@ -1,0 +1,55 @@
+{
+  "projects": [
+    {
+      "id": "1",
+      "name": "My Dashboard",
+      "description": "Sunt commodo nostrud officia dolore incididunt proident. Enim veniam aliquip magna incididunt elit Lorem est eiusmod eu voluptate labore adipisicing. Qui veniam cillum nostrud amet incididunt occaecat eiusmod eiusmod ut aute sunt elit qui culpa. Quis nulla irure cupidatat duis aliquip consequat quis.",
+      "tasks": [
+        {
+          "id": "t1",
+          "name": "Create APIs for data",
+          "status": "In Progress",
+          "deadline": "01/02/2022",
+          "timeSpent": "10000",
+          "description": " aliqua deserunt fugiat fugiat aute aliquip nisi. Ad cupidatat do ipsum aliqua in pariatur nisi est aute sint eiusmod id Lorem eu. Nostrud dolore ad proident anim elit. Veniam elit non dolore ea id ex anim."
+        },
+        {
+          "id": "t2",
+          "name": "Create Tasks UI",
+          "status": "In Progress",
+          "deadline": "01/02/2022",
+          "timeSpent": "10000",
+          "description": "Quis aliqua deserunt fugiat fugiat aute aliquip nisi. Ad cupidatat do ipsum aliqua in pariatur nisi est aute sint eiusmod id Lorem eu. Nostrud dolore ad proident anim elit. Veniam elit non dolore ea id ex anim."
+        }
+      ],
+      "deadline": "01/02/2022",
+      "statuses": ["Started", "In Progress", "Done"]
+    },
+
+    {
+      "id": "2",
+      "name": "Codechunks",
+      "description": "Blog commodo nostrud officia dolore incididunt proident. Enim veniam aliquip magna incididunt elit Lorem est eiusmod eu voluptate labore adipisicing. Qui veniam cillum nostrud amet incididunt occaecat eiusmod eiusmod ut aute sunt elit qui culpa. Quis nulla irure cupidatat duis aliquip consequat quis.",
+      "tasks": [
+        {
+          "id": "t21",
+          "name": "Create Posts",
+          "status": "In Progress",
+          "deadline": "01/02/2022",
+          "timeSpent": "20000",
+          "description": " aliqua deserunt fugiat fugiat aute aliquip nisi. Ad cupidatat do ipsum aliqua in pariatur nisi est aute sint eiusmod id Lorem eu. Nostrud dolore ad proident anim elit. Veniam elit non dolore ea id ex anim."
+        },
+        {
+          "id": "t2",
+          "name": "Create Tasks UI",
+          "status": "In Progress",
+          "deadline": "01/02/2022",
+          "timeSpent": "10000",
+          "description": "Quis aliqua deserunt fugiat fugiat aute aliquip nisi. Ad cupidatat do ipsum aliqua in pariatur nisi est aute sint eiusmod id Lorem eu. Nostrud dolore ad proident anim elit. Veniam elit non dolore ea id ex anim."
+        }
+      ],
+      "deadline": "01/02/2022",
+      "statuses": ["Started", "In Progress", "Done"]
+    }
+  ]
+}

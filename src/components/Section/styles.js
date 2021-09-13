@@ -10,7 +10,7 @@ export const Container = styled.section`
   height: 100%;
   border-radius: 8px;
   padding: 8px 12px;
-  width: fit-content;
+  width: 250px;
   min-width: 250px;
   background-color: #f5f9fa;
   color: ${colors.active};
@@ -29,7 +29,10 @@ export const StyledSection = styled(Scrollbar)`
   padding-top: 8px;
   padding-bottom: 8px;
   overflow-y: scroll;
+  overflow-x: hidden;
   height: calc(100vh - 100px);
+
+  user-select: none;
 `;
 export const SectionHeader = styled(Row)`
   background-color: #f2f2f4;

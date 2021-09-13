@@ -19,7 +19,7 @@ function App() {
               <Route
                 key={route.name}
                 path={route.path}
-                render={ComponentMap[route.name]}
+                component={ComponentMap[route.name]}
               />
             ))}
           </Switch>
