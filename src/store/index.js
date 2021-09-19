@@ -1,8 +1,10 @@
 import { configureStore } from "@reduxjs/toolkit";
-import projectReducer from "containers/Project/projectSlice";
+import taskBoardReducer from "containers/TaskBoard/taskBoardSlice";
+import projectsReducer from "containers/Projects/projectSlice";
 
 export const store = configureStore({
   reducer: {
-    project: projectReducer,
+    taskBoard: taskBoardReducer,
+    project: projectsReducer,
   },
 });

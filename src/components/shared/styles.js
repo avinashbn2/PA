@@ -13,3 +13,10 @@ export const Column = styled(Row)`
 export const Text = styled.span`
   padding: 0px 4px;
 `;
+
+export const Error = styled.span`
+  color: red;
+  font-size: 0.7em;
+  padding: 4px;
+  letter-spacing: 0.03em;
+`;

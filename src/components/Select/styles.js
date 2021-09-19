@@ -1,13 +1,13 @@
 import styled from "styled-components";
 import { Row } from "../shared/styles";
-
+import { getColor } from "utils/theme";
 export const StyledSelect = styled.div`
   position: relative;
-  box-sizing: border-box;
   width: fit-content;
   transition: all 0.3s;
-  --height: 2.4em;
+  --height: 1.3em;
   --width: 10em;
+  --padding: 0.5em 0.75em;
 `;
 export const UL = styled.ul`
   padding: 0;
@@ -18,29 +18,31 @@ export const UL = styled.ul`
   transform: translate(0, var(--height));
 `;
 export const Option = styled.li`
-  padding: 1em 2em;
+  padding: var(--padding);
   font-size: 1em;
   background-color: ${(p) =>
-    p.active ? "hsl(200, 100%, 40%)" : "hsl(200, 100%, 45%)"};
+    p.active
+      ? getColor(p, "main", "secondary")
+      : getColor(p, "light", "secondary")};
   list-style-type: none;
   cursor: pointer;
-  color: white;
+  color: black;
   &:hover {
-    background-color: hsl(200, 100%, 55%);
+    opacity: 0.8;
+    outline: 2px solid ${(p) => getColor(p, "dark", "secondary")};
   }
 `;
 
 export const Selected = styled(Row)`
-  padding: 1em;
+  padding: var(--padding);
   cursor: pointer;
-  font-weight: bold;
-  color: white;
+  color: black;
   width: var(--width);
-  background-color: hsl(200, 100%, 50%);
+  background-color: ${(p) => getColor(p, "light", "secondary")};
   border-radius: 0.25em;
   justify-content: space-between;
   & > svg {
     font-size: 1em;
-    color: white;
+    color: black;
   }
 `;

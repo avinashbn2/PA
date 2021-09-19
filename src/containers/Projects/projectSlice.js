@@ -1,4 +1,4 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk, isAnyOf } from "@reduxjs/toolkit";
 
 export const getProjects = createAsyncThunk(
   "projects/getProjects",
@@ -6,6 +6,19 @@ export const getProjects = createAsyncThunk(
     const resp = await fetch("http://localhost:4000/projects");
     const dt = await resp.json();
     return dt;
+  }
+);
+
+export const addProject = createAsyncThunk(
+  "projects/addProject",
+
+  async ({ name, description }) => {
+    const resp = await fetch("http://localhost:4000/projects", {
+      body: JSON.stringify({
+        name,
+        description,
+      }),
+    });
   }
 );
 
@@ -18,7 +31,7 @@ export const projectSlice = createSlice({
   name: "project",
   initialState,
   reducers: {
-    addTask: (state, action) => {
+    addProject: (state, action) => {
       const { task, id: pid } = action.payload;
       const projects = [...state.data];
       const projectIdx = projects.findIndex((p) => p.id === pid);
@@ -32,7 +45,7 @@ export const projectSlice = createSlice({
       }
       projects[projectIdx] = project;
     },
-    removeTask: (state, action) => {
+    removeProject: (state, action) => {
       const projects = [...state.data];
 
       const { task, pid } = action;
@@ -42,17 +55,23 @@ export const projectSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(getProjects.pending, (state) => {
-        state.status = "loading";
-      })
       .addCase(getProjects.fulfilled, (state, action) => {
         console.log("action", action);
         state.status = "success";
         state.data = action.payload;
       })
-      .addCase(getProjects.rejected, (state, action) => {
-        state.status = "rejected";
-      });
+      .addMatcher(
+        isAnyOf(getProjects.rejected, addProject.rejected),
+        (state, action) => {
+          state.status = "rejected";
+        }
+      )
+      .addMatcher(
+        isAnyOf(getProjects.pending, addProject.pending),
+        (state, action) => {
+          state.status = "loading";
+        }
+      );
   },
 });
 

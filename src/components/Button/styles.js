@@ -8,19 +8,14 @@ const fontSizes = {
   xs: "10px",
 };
 
-const COLORS = {
-  primary: "#2D4ACD",
-  secondary: "#09a09a",
-};
-
 export const StyledButton = styled.button`
   outline: none;
   padding: 12px 24px;
   border-radius: 8px;
   border: none;
   font-size: ${(p) => fontSizes[p.fontSize]};
-  background-color: ${(p) => COLORS[p.color]};
-  color: white;
+  background-color: ${(p) => p.theme.colors[p.color].main};
+  color: black;
   letter-spacing: 0.03em;
   cursor: pointer;
   font-weight: 400;
