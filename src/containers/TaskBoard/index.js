@@ -12,15 +12,16 @@ import { FaComment, FaEllipsisV } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 
 import { StyledProject } from "./styles";
-import { addTask, getProject } from "./taskBoardSlice";
+import { getTasks } from "./taskBoardSlice";
 
 function TaskBoard({ match: { params: { id } = {} } = {} }) {
   const dispatch = useDispatch();
   const project = useSelector((state) => state.taskBoard);
 
   useEffect(() => {
+    console.log("id", id);
     if (id) {
-      dispatch(getProject(id));
+      dispatch(getTasks(id));
     }
   }, [dispatch, id]);
 
@@ -30,34 +31,31 @@ function TaskBoard({ match: { params: { id } = {} } = {} }) {
   if (project?.status === "rejected") {
     return <div>Failed to Load......</div>;
   }
-  if (project?.data.length === 0) {
+  if (project?.data?.tasks?.length === 0) {
     return <div>No Projects Found</div>;
   }
-  console.log("project", project);
   return (
     <>
       <Button
-        onClick={() =>
-          dispatch(addTask({ id: "p12", task: { id: "test", name: "testss" } }))
-        }
+      // onClick={() =>
+      //   dispatch(addTask({ id: "p12", task: { id: "test", name: "testss" } }))
+      // }
       >
-        {" "}
         Add Task
       </Button>
       <DragDropContext onDragEnd={console.log}>
         <StyledProject>
-          <Droppable droppableId={`${project?.data?.id}`}>
-            {" "}
+          <Droppable droppableId={`${project?.data?._id}`}>
             {(provided) => (
               <Section
                 {...provided.droppableProps}
                 innerRef={provided.innerRef}
-                key={project?.data?.id}
+                key={project?.data?._id}
                 title={project?.data?.status}
               >
-                {project?.data?.tasks.map((t, index) => (
+                {project?.data?.tasks?.map((t, index) => (
                   <Draggable
-                    draggableId={`${project?.data?.id}${t.id}`}
+                    draggableId={`${project?.data?._id}${t._id}`}
                     index={index}
                   >
                     {(provided, snapshot) => (
@@ -66,7 +64,7 @@ function TaskBoard({ match: { params: { id } = {} } = {} }) {
                         snapshot={snapshot}
                         {...provided.draggableProps}
                         {...provided.dragHandleProps}
-                        key={`${project?.data?.id}${t.id}`}
+                        key={`${project?.data?._id}${t._id}`}
                       >
                         <Card.Header justify="space-between">
                           <Card.Title>{t.name}</Card.Title>

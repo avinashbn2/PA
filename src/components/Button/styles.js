@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { getColor } from "utils/theme";
 
 const fontSizes = {
   xl: "18px",
@@ -10,7 +11,7 @@ const fontSizes = {
 
 export const StyledButton = styled.button`
   outline: none;
-  padding: 12px 24px;
+  padding: 0.6em 1em;
   border-radius: 8px;
   border: none;
   font-size: ${(p) => fontSizes[p.fontSize]};
@@ -24,4 +25,9 @@ export const StyledButton = styled.button`
   justify-content: space-between;
   gap: 8px;
   align-items: center;
+  border-bottom: 4px solid ${(p) => p.theme.colors[p.color].dark};
+  &:focus {
+    margin-top: 2px;
+    border-bottom: 2px solid ${(p) => p.theme.colors[p.color].dark};
+  }
 `;

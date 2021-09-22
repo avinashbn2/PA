@@ -5,6 +5,7 @@ import "scrollbar.css";
 import Button from "components/Button";
 import { addTask, getProjects } from "./projectSlice";
 import { useHistory } from "react-router";
+import { setProject } from "containers/TaskBoard/taskBoardSlice";
 
 function Project() {
   const dispatch = useDispatch();
@@ -31,13 +32,17 @@ function Project() {
           dispatch(addTask({ id: "p12", task: { id: "test", name: "testss" } }))
         }
       >
-        {" "}
         Add Project
       </Button>
 
       <StyledProjects>
         {projects?.data?.map((p) => (
-          <StyledProject onClick={() => history.push(`/project/${p.id}`)}>
+          <StyledProject
+            onClick={() => {
+              setProject(p);
+              history.push(`/secure/project/${p._id}`);
+            }}
+          >
             {p.name}
           </StyledProject>
         ))}

@@ -1,38 +1,32 @@
 import "./App.css";
 import GlobalStyle from "./globalStyles";
-import { Route, BrowserRouter as Router, Switch } from "react-router-dom";
-import { routes } from "utils/routeConfig";
-import Layout from "components/Layout";
-import TaskBoard from "containers/TaskBoard";
-import Projects from "containers/Projects";
-
+import {
+  Route,
+  Redirect,
+  BrowserRouter as Router,
+  Switch,
+} from "react-router-dom";
+import Secure from "containers/Secure";
 import { ThemeProvider } from "styled-components";
 import { useTheme } from "hooks";
 import * as THEME from "theme";
-const ComponentMap = {
-  AllProjects: Projects,
-  Project: TaskBoard,
-};
+import Auth from "containers/Auth";
+
+import history from "store/utils";
+const NOTFOUND = () => <div>Not found</div>;
 function App() {
   const { theme } = useTheme();
   return (
     <ThemeProvider theme={THEME[theme]}>
       <GlobalStyle />
 
-      <Router>
-        <Layout>
-          <Switch>
-            {routes.map((route) => (
-              <Route
-                key={route.name}
-                exact
-                path={route.path}
-                component={ComponentMap[route.name]}
-              />
-            ))}
-            <Route key="project" path="/project/:id" component={TaskBoard} />
-          </Switch>
-        </Layout>
+      <Router history={history}>
+        <Switch>
+          <Secure path="/secure" component={Secure} />
+          <Redirect exact path="/" to="/secure" />
+          <Auth />
+          <Route component={NOTFOUND} />
+        </Switch>
       </Router>
     </ThemeProvider>
   );

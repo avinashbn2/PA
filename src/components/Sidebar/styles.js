@@ -38,4 +38,5 @@ export const StyledSidebar = styled(Column)`
 `;
 export const StyledRoutes = styled(Column)`
   display: ${(p) => (p.open ? "flex" : "none")};
+  align-items: flex-start;
 `;

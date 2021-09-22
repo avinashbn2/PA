@@ -26,7 +26,8 @@ export const light = {
       dark: "#84bb9a",
     },
     text: {
-      main: "#000",
+      dark: "#000",
+      main: "#2c404c",
       light: "#808080",
     },
 

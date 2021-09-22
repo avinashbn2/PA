@@ -1,13 +1,15 @@
 import styled from "styled-components";
 import Scrollbar from "react-perfect-scrollbar";
 import { Column } from "components/shared/styles";
+import { getColor } from "utils/theme";
 
 export const StyledProjects = styled(Scrollbar)`
   margin: 1em;
   display: grid;
   grid-gap: 1em;
-  grid-template-rows: repeat(4, 1fr);
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-auto-rows: 180px;
+  overflow-y: auto;
 `;
 
 export const StyledProject = styled(Column)`
@@ -15,11 +17,11 @@ export const StyledProject = styled(Column)`
   padding: 1.5em;
   transition: box-shadow 0.3s linear;
   cursor: pointer;
-  color: salmon;
   font-weight: bold;
   font-size: 20px;
 
-  background-color: hsl(90, 40%, 90%);
+  color: ${(p) => getColor(p, "main", "text")};
+  background-color: ${(p) => getColor(p, "main", "secondary")};
   &:hover {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.125), 0 0 20px rgba(0, 0, 0, 0.25);
   }

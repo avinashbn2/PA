@@ -1,23 +1,28 @@
 import { createSlice, createAsyncThunk, isAnyOf } from "@reduxjs/toolkit";
+import { http } from "api";
+import { tokenSelector } from "containers/Auth/authSlice";
 
 export const getProjects = createAsyncThunk(
   "projects/getProjects",
-  async () => {
-    const resp = await fetch("http://localhost:4000/projects");
-    const dt = await resp.json();
-    return dt;
+  async (state, { getState }) => {
+    const resp = await http("project?limit=100", {
+      token: tokenSelector(getState),
+    });
+    console.log("resp", resp);
+    return resp.results;
   }
 );
 
 export const addProject = createAsyncThunk(
   "projects/addProject",
 
-  async ({ name, description }) => {
-    const resp = await fetch("http://localhost:4000/projects", {
+  async ({ name, description }, { getState }) => {
+    await http("project", {
       body: JSON.stringify({
         name,
         description,
       }),
+      token: tokenSelector(getState),
     });
   }
 );
@@ -34,7 +39,7 @@ export const projectSlice = createSlice({
     addProject: (state, action) => {
       const { task, id: pid } = action.payload;
       const projects = [...state.data];
-      const projectIdx = projects.findIndex((p) => p.id === pid);
+      const projectIdx = projects.findIndex((p) => p._id === pid);
       if (projectIdx > -1) {
       }
       const project = projects[projectIdx];
@@ -49,8 +54,8 @@ export const projectSlice = createSlice({
       const projects = [...state.data];
 
       const { task, pid } = action;
-      const project = projects.filter((p) => p.id === pid);
-      project.tasks.filter((t) => t.id === task);
+      const project = projects.filter((p) => p._id === pid);
+      project.tasks.filter((t) => t._id === task);
     },
   },
   extraReducers: (builder) => {

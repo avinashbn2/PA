@@ -2,13 +2,21 @@ import React from "react";
 import PropTypes from "prop-types";
 import { StyledButton } from "./styles";
 
-function Button({ onClick, children, disabled, color, fontSize }) {
+function Button({
+  onClick,
+  type = "button",
+  children,
+  disabled,
+  color,
+  fontSize,
+}) {
   return (
     <StyledButton
       fontSize={fontSize}
       color={color}
-      onClick={onClick}
+      onClick={type === "button" && onClick}
       disabled={disabled}
+      type={type}
     >
       {children}
     </StyledButton>
@@ -18,7 +26,7 @@ function Button({ onClick, children, disabled, color, fontSize }) {
 export default Button;
 Button.defaultProps = {
   fontSize: "md",
-  color: "primary",
+  color: "secondary",
 };
 
 Button.displayName = "Button";

@@ -4,8 +4,11 @@ import PropTypes from "prop-types";
 import { Error } from "components/shared/styles";
 import { StyledInput, StyledLabel } from "./styles";
 
-function Input({ error, value, disabled, onChange, placeholder, label }) {
-  return (
+const Input = React.forwardRef(
+  (
+    { error, type, value, disabled, onChange, placeholder, label, ...others },
+    ref
+  ) => (
     <StyledInput>
       {label && <StyledLabel>{label}</StyledLabel>}
       <input
@@ -13,13 +16,15 @@ function Input({ error, value, disabled, onChange, placeholder, label }) {
         onClick={onChange}
         disabled={disabled}
         placeholder={placeholder}
-        type="text"
+        type={type}
         error={error}
+        ref={ref}
+        {...others}
       />
       {error && <Error>{error}</Error>}
     </StyledInput>
-  );
-}
+  )
+);
 
 export default Input;
 Input.defaultProps = {};

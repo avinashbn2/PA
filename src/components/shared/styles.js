@@ -20,3 +20,10 @@ export const Error = styled.span`
   padding: 4px;
   letter-spacing: 0.03em;
 `;
+
+export const Form = styled.form`
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+`;

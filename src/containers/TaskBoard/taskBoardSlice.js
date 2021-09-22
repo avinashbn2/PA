@@ -1,60 +1,77 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
+import { http } from "api";
+import { tokenSelector } from "containers/Auth/authSlice";
+
 const initialState = {
-  data: { id: "p12", tasks: [], name: "New Project" },
+  data: {},
   status: "idle",
 };
-export const getProject = createAsyncThunk(
-  "projects/getProject",
-  async (id) => {
-    const resp = await fetch("http://localhost:4000/projects/" + id);
-    const dt = await resp.json();
-    return dt;
+export const getTasks = createAsyncThunk(
+  "tasks/getTasks",
+  async (id, { getState }) => {
+    const resp = await http(`project/${id}`, {
+      token: tokenSelector(getState),
+    });
+    return resp;
   }
 );
-export const projectSlice = createSlice({
+export const taskSlice = createSlice({
   name: "taskBoard",
   initialState,
   reducers: {
-    addTask: (state, action) => {
-      const { task, id: pid } = action.payload;
-      const projects = [...state.data];
-      const projectIdx = projects.findIndex((p) => p.id === pid);
-      if (projectIdx > -1) {
-      }
-      const project = projects[projectIdx];
-      if (project.tasks) {
-        project.tasks.push(task);
-      } else {
-        project.tasks = [task];
-      }
-      projects[projectIdx] = project;
-    },
-    removeTask: (state, action) => {
-      const projects = [...state.data];
-
-      const { task, pid } = action;
-      const project = projects.filter((p) => p.id === pid);
-      project.tasks.filter((t) => t.id === task);
-    },
+    setProject: (state, action) => {},
+    // addTask: (state, action) => {
+    //   const { task, id: pid } = action.payload;
+    //   const tasks = [...state.data];
+    //   const taskIdx = tasks.findIndex((p) => p._id === pid);
+    //   if (taskIdx > -1) {
+    //   }
+    //   const task = tasks[taskIdx];
+    //   if (task.tasks) {
+    //     task.tasks.push(task);
+    //   } else {
+    //     task.tasks = [task];
+    //   }
+    //   tasks[taskIdx] = task;
+    // },
+    // removeTask: (state, action) => {
+    //   const tasks = [...state.data];
+    //   const { task, pid } = action;
+    //   const task = tasks.filter((p) => p._id === pid);
+    //   task.tasks.filter((t) => t._id === task);
+    // },
   },
   extraReducers: (builder) => {
     builder
-      .addCase(getProject.pending, (state) => {
+      .addCase(getTasks.pending, (state) => {
         state.status = "loading";
       })
-      .addCase(getProject.fulfilled, (state, action) => {
-        console.log("action", action);
+      .addCase(getTasks.fulfilled, (state, action) => {
         state.status = "success";
         state.data = action.payload;
+        const tasks = action.payload.tasks;
+        const tasksByStatus = tasks.reduce((a, task) => {
+          const status = `${task.status}`;
+          console.log("a task", a, task);
+
+          if (a && a[status] && Array.isArray(a[status])) {
+            a[status].push(task);
+          } else {
+            a[status] = [task];
+          }
+          return a;
+        }, {});
+        state.tasks = tasksByStatus;
       })
-      .addCase(getProject.rejected, (state, action) => {
+      .addCase(getTasks.rejected, (state, action) => {
         state.status = "rejected";
       });
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { addTask, removeTask } = projectSlice.actions;
+export const { setProject } = taskSlice.actions;
 
-export default projectSlice.reducer;
+export default taskSlice.reducer;
+console.log("taskSlice.reducer", taskSlice.reducer);
