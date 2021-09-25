@@ -11,14 +11,15 @@ const fontSizes = {
 };
 
 export const StyledInput = styled(Column)`
-  padding: 8px;
+  padding: 8px 0px;
   justify-content: flex-start;
   align-items: flex-start;
+  width: 100%;
 
   & > input {
     border: none;
     padding: 12px 16px;
-    border-radius: 8px;
+    border-radius: 4px;
     font-size: ${(p) => fontSizes[p.fontSize]};
     background-color: ${(p) => (p.error ? "salmon" : "rgb(243, 243, 244)")};
     letter-spacing: 0.03em;

@@ -6,6 +6,7 @@ import Button from "components/Button";
 import { addTask, getProjects } from "./projectSlice";
 import { useHistory } from "react-router";
 import { setProject } from "containers/TaskBoard/taskBoardSlice";
+import { getFormattedDate } from "utils/helpers";
 
 function Project() {
   const dispatch = useDispatch();
@@ -43,7 +44,9 @@ function Project() {
               history.push(`/secure/project/${p._id}`);
             }}
           >
-            {p.name}
+            <h4>{p.name}</h4>
+            <h6>{p.description}</h6>
+            <h6>Created on {getFormattedDate(p.createdAt)}</h6>
           </StyledProject>
         ))}
       </StyledProjects>

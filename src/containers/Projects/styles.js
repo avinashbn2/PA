@@ -7,7 +7,7 @@ export const StyledProjects = styled(Scrollbar)`
   margin: 1em;
   display: grid;
   grid-gap: 1em;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(16em, 20em));
   grid-auto-rows: 180px;
   overflow-y: auto;
 `;
@@ -25,4 +25,5 @@ export const StyledProject = styled(Column)`
   &:hover {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.125), 0 0 20px rgba(0, 0, 0, 0.25);
   }
+  gap: 1em;
 `;

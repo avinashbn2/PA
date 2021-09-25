@@ -12,7 +12,7 @@ const base = {
 };
 export const light = {
   colors: {
-    background: "#FEC8A7",
+    background: "rgba(235, 255, 240, 0.25)",
     background2: "#FCECA5",
     fieldBg: "rgb(243,243,244)",
     primary: {

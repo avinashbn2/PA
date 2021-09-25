@@ -16,44 +16,65 @@ export const getTasks = createAsyncThunk(
     return resp;
   }
 );
+
+export const updateTask = createAsyncThunk(
+  "tasks/updateTask",
+  async ({ id, previous, ...body }, { getState }) => {
+    try {
+      const resp = await http(`task/${id}`, {
+        token: tokenSelector(getState),
+        body,
+        method: "PUT",
+      });
+      return resp;
+    } catch (err) {
+      console.log("err", err);
+    }
+  }
+);
 export const taskSlice = createSlice({
   name: "taskBoard",
   initialState,
   reducers: {
     setProject: (state, action) => {},
-    // addTask: (state, action) => {
-    //   const { task, id: pid } = action.payload;
-    //   const tasks = [...state.data];
-    //   const taskIdx = tasks.findIndex((p) => p._id === pid);
-    //   if (taskIdx > -1) {
-    //   }
-    //   const task = tasks[taskIdx];
-    //   if (task.tasks) {
-    //     task.tasks.push(task);
-    //   } else {
-    //     task.tasks = [task];
-    //   }
-    //   tasks[taskIdx] = task;
-    // },
-    // removeTask: (state, action) => {
-    //   const tasks = [...state.data];
-    //   const { task, pid } = action;
-    //   const task = tasks.filter((p) => p._id === pid);
-    //   task.tasks.filter((t) => t._id === task);
-    // },
   },
   extraReducers: (builder) => {
     builder
-      .addCase(getTasks.pending, (state) => {
+      .addCase(updateTask.pending, (state, action) => {
         state.status = "loading";
+
+        const newStatus = action?.meta?.arg?.status;
+        console.log("action", action);
+        const prevTask = action?.meta?.arg?.previous;
+        const index = state.tasks[prevTask?.status]?.findIndex(
+          (t) => t._id === prevTask._id
+        );
+        // remove from old section
+        state.tasks[prevTask?.status].splice(index, 1);
+        // add to new section
+        const newTask = { ...prevTask };
+        newTask.status = newStatus;
+        if (state.tasks[newStatus]) {
+          state.tasks[newStatus].push(newTask);
+        } else {
+          state.tasks[newStatus] = [newTask];
+        }
+      })
+      .addCase(updateTask.fulfilled, (state, action) => {
+        state.status = "success";
       })
       .addCase(getTasks.fulfilled, (state, action) => {
         state.status = "success";
         state.data = action.payload;
+        const statuses = action.payload.statuses;
+        const sortedStatuses = statuses
+          .sort((st, st2) => st.order < st2.order)
+          .map((s) => s.name);
+        state.statusGroups = sortedStatuses;
+
         const tasks = action.payload.tasks;
         const tasksByStatus = tasks.reduce((a, task) => {
           const status = `${task.status}`;
-          console.log("a task", a, task);
 
           if (a && a[status] && Array.isArray(a[status])) {
             a[status].push(task);
@@ -62,10 +83,18 @@ export const taskSlice = createSlice({
           }
           return a;
         }, {});
+
         state.tasks = tasksByStatus;
       })
       .addCase(getTasks.rejected, (state, action) => {
         state.status = "rejected";
+      })
+      .addCase(updateTask.rejected, (state, action) => {
+        console.log("action", action);
+        state.status = "Failed to update";
+      })
+      .addCase(getTasks.pending, (state) => {
+        state.status = "loading";
       });
   },
 });
@@ -74,4 +103,3 @@ export const taskSlice = createSlice({
 export const { setProject } = taskSlice.actions;
 
 export default taskSlice.reducer;
-console.log("taskSlice.reducer", taskSlice.reducer);

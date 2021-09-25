@@ -9,6 +9,8 @@ function Button({
   disabled,
   color,
   fontSize,
+  className,
+  fullWidth = false,
 }) {
   return (
     <StyledButton
@@ -16,7 +18,9 @@ function Button({
       color={color}
       onClick={type === "button" && onClick}
       disabled={disabled}
+      className={className}
       type={type}
+      fullWidth={fullWidth}
     >
       {children}
     </StyledButton>

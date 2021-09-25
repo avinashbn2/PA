@@ -9,6 +9,7 @@ export function http(endpoint, { body, token, ...customConfig } = {}) {
   if (token) {
     headers.Authorization = `Bearer ${token}`;
   }
+
   const config = {
     method: body ? "POST" : "GET",
     ...customConfig,
@@ -25,7 +26,8 @@ export function http(endpoint, { body, token, ...customConfig } = {}) {
     .then(async (response) => {
       if (response.status === 401) {
         // persistor.purge();
-        history?.push("/login");
+        console.log("history", history);
+        history?.replace("/login");
       }
       if (response.ok) {
         return await response.json();

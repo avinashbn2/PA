@@ -6,28 +6,49 @@ import Chip from "components/Chip";
 import Section from "components/Section";
 import React, { useEffect } from "react";
 import { Draggable, Droppable } from "react-beautiful-dnd";
+import NProgress from "nprogress";
 import { DragDropContext } from "react-beautiful-dnd";
-// import { projects } from "./data";
+
 import { FaComment, FaEllipsisV } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 
 import { StyledProject } from "./styles";
-import { getTasks } from "./taskBoardSlice";
+import { getTasks, updateTask } from "./taskBoardSlice";
 
 function TaskBoard({ match: { params: { id } = {} } = {} }) {
   const dispatch = useDispatch();
   const project = useSelector((state) => state.taskBoard);
 
   useEffect(() => {
-    console.log("id", id);
     if (id) {
       dispatch(getTasks(id));
     }
   }, [dispatch, id]);
 
-  if (project?.status === "loading") {
-    return <div>LOADING......</div>;
-  }
+  const onDrop = (transfer) => {
+    const { source, destination, draggableId } = transfer;
+
+    if (source.droppableId === destination.droppableId) {
+      return;
+    }
+    const [, sourceStatus] = source.droppableId.split("-");
+    const prevTask = project?.tasks?.[sourceStatus]?.[source.index];
+    const [, destinationStatus] = destination.droppableId.split("-");
+    dispatch(
+      updateTask({
+        id: draggableId,
+        status: destinationStatus,
+        previous: prevTask,
+      })
+    );
+  };
+  useEffect(() => {
+    if (project?.status === "loading") {
+      NProgress.start();
+    } else {
+      NProgress.done();
+    }
+  }, [project]);
   if (project?.status === "rejected") {
     return <div>Failed to Load......</div>;
   }
@@ -43,48 +64,47 @@ function TaskBoard({ match: { params: { id } = {} } = {} }) {
       >
         Add Task
       </Button>
-      <DragDropContext onDragEnd={console.log}>
+      <DragDropContext onDragEnd={onDrop}>
         <StyledProject>
-          <Droppable droppableId={`${project?.data?._id}`}>
-            {(provided) => (
-              <Section
-                {...provided.droppableProps}
-                innerRef={provided.innerRef}
-                key={project?.data?._id}
-                title={project?.data?.status}
-              >
-                {project?.data?.tasks?.map((t, index) => (
-                  <Draggable
-                    draggableId={`${project?.data?._id}${t._id}`}
-                    index={index}
-                  >
-                    {(provided, snapshot) => (
-                      <Card
-                        innerRef={provided.innerRef}
-                        snapshot={snapshot}
-                        {...provided.draggableProps}
-                        {...provided.dragHandleProps}
-                        key={`${project?.data?._id}${t._id}`}
-                      >
-                        <Card.Header justify="space-between">
-                          <Card.Title>{t.name}</Card.Title>
-                          <FaEllipsisV />
-                        </Card.Header>
-                        <Card.Content>{t.description}</Card.Content>
+          {project?.statusGroups?.map((sg) => (
+            <Droppable droppableId={`${project?.data?._id}-${sg}`}>
+              {(provided) => (
+                <Section
+                  {...provided.droppableProps}
+                  innerRef={provided.innerRef}
+                  key={project?.data?._id}
+                  title={sg}
+                >
+                  {project?.tasks[sg]?.map((t, index) => (
+                    <Draggable draggableId={`${t._id}`} index={index}>
+                      {(provided, snapshot) => (
+                        <Card
+                          innerRef={provided.innerRef}
+                          snapshot={snapshot}
+                          {...provided.draggableProps}
+                          {...provided.dragHandleProps}
+                          key={`${project?.data?._id}${t._id}`}
+                        >
+                          <Card.Header justify="space-between">
+                            <Card.Title>{t.name}</Card.Title>
+                            <FaEllipsisV />
+                          </Card.Header>
+                          <Card.Content>{t.description}</Card.Content>
 
-                        <Card.Footer justify="space-between">
-                          <Chip size="sm" color="salmon">
-                            {t.deadline}
-                          </Chip>
-                          <FaComment />
-                        </Card.Footer>
-                      </Card>
-                    )}
-                  </Draggable>
-                ))}
-              </Section>
-            )}
-          </Droppable>
+                          <Card.Footer justify="space-between">
+                            <Chip size="sm" color="salmon">
+                              {t.deadline}
+                            </Chip>
+                            <FaComment />
+                          </Card.Footer>
+                        </Card>
+                      )}
+                    </Draggable>
+                  ))}
+                </Section>
+              )}
+            </Droppable>
+          ))}
         </StyledProject>
       </DragDropContext>
     </>

@@ -61,7 +61,6 @@ export const projectSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(getProjects.fulfilled, (state, action) => {
-        console.log("action", action);
         state.status = "success";
         state.data = action.payload;
       })
@@ -69,6 +68,7 @@ export const projectSlice = createSlice({
         isAnyOf(getProjects.rejected, addProject.rejected),
         (state, action) => {
           state.status = "rejected";
+          console.log("action", action);
         }
       )
       .addMatcher(

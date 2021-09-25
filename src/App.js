@@ -1,16 +1,12 @@
 import "./App.css";
 import GlobalStyle from "./globalStyles";
-import {
-  Route,
-  Redirect,
-  BrowserRouter as Router,
-  Switch,
-} from "react-router-dom";
+import { Route, Redirect, Router, Switch } from "react-router-dom";
 import Secure from "containers/Secure";
 import { ThemeProvider } from "styled-components";
 import { useTheme } from "hooks";
 import * as THEME from "theme";
 import Auth from "containers/Auth";
+import "nprogress/nprogress.css";
 
 import history from "store/utils";
 const NOTFOUND = () => <div>Not found</div>;

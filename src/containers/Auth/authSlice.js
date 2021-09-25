@@ -7,15 +7,6 @@ export const tokenSelector = (getState) => {
   const { auth: { tokens: { access: { token } = {} } = {} } = {} } = getState();
   return token;
 };
-export const withToken = (body, others) => {
-  console.log("others", others);
-  console.log("body", body);
-  const { getState } = others;
-  const token = tokenSelector(getState);
-  return (fn) => {
-    fn(body, others, token);
-  };
-};
 
 export const login = createAsyncThunk("auth/login", async (body) => {
   try {

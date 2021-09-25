@@ -11,7 +11,7 @@ const fontSizes = {
 
 export const StyledButton = styled.button`
   outline: none;
-  padding: 0.6em 1em;
+  padding: 0.5em 3em;
   border-radius: 8px;
   border: none;
   font-size: ${(p) => fontSizes[p.fontSize]};
@@ -20,11 +20,10 @@ export const StyledButton = styled.button`
   letter-spacing: 0.03em;
   cursor: pointer;
   font-weight: 400;
-
+  width: ${(p) => p.fullWidth && "100%"};
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   gap: 8px;
-  align-items: center;
   border-bottom: 4px solid ${(p) => p.theme.colors[p.color].dark};
   &:focus {
     margin-top: 2px;
