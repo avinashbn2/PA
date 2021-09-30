@@ -16,15 +16,13 @@ function Login() {
   const history = useHistory();
   const status = useSelector((state) => state?.auth?.status);
   const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(resetState());
-  }, [dispatch]);
 
   useEffect(() => {
     if (status === "success") {
       history.push("/secure/project");
+      dispatch(resetState());
     }
-  }, [status, history]);
+  }, [status, history, dispatch]);
 
   const onLogin = async (data) => {
     dispatch(login(data));

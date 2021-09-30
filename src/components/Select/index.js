@@ -8,7 +8,7 @@ import React, {
 import { UL, StyledSelect, Selected, Option } from "./styles";
 import { HiSelector } from "react-icons/hi";
 import useClickOutside from "hooks/useClickOutside";
-function Select({ options, value: iValue, onChange }) {
+const Select = React.forwardRef(({ options, value: iValue, onChange }) => {
   const [value, setValue] = useState(iValue || options[0]);
   const [openDropdown, setOpenDropdown] = useState(false);
   const ref = useRef();
@@ -17,10 +17,10 @@ function Select({ options, value: iValue, onChange }) {
     setOpenDropdown(false);
   });
   useEffect(() => {
-    if (value !== iValue) {
-      onChange(value);
-    }
-  }, [value, iValue, onChange]);
+    // if (value !== iValue) {
+    onChange(value);
+    // }
+  }, [value, onChange]);
 
   const onClick = useCallback(
     (option) => () => {
@@ -50,6 +50,6 @@ function Select({ options, value: iValue, onChange }) {
       {Options}
     </StyledSelect>
   );
-}
+});
 
 export default Select;

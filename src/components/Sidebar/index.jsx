@@ -34,18 +34,20 @@ function Sidebar({ onClick, routes, activeRoute }) {
       ) : (
         <MdClose onClick={toggleOpen} />
       )}
-      <Brand title="LOGO" />
+      {/* <Brand title="Dashboard" /> */}
       <StyledRoutes open={openSidebar}>
-        {routes.map((route) => (
-          <ListItem
-            acitve={route.path === activeRoute}
-            key={route.name}
-            onClick={() => history.push(route.path)}
-            icon={route.icon}
-          >
-            {route.name}
-          </ListItem>
-        ))}
+        {routes.map((route) => {
+          return !route?.path.includes(":") ? (
+            <ListItem
+              acitve={route.path === activeRoute}
+              key={route.name}
+              onClick={() => history.push(route.path)}
+              icon={route.icon}
+            >
+              {route.name}
+            </ListItem>
+          ) : null;
+        })}
       </StyledRoutes>
     </StyledSidebar>
   );

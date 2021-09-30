@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, memo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { StyledProject, StyledProjects } from "./styles";
 import "scrollbar.css";
@@ -7,6 +7,7 @@ import { addTask, getProjects } from "./projectSlice";
 import { useHistory } from "react-router";
 import { setProject } from "containers/TaskBoard/taskBoardSlice";
 import { getFormattedDate } from "utils/helpers";
+import { useLoader } from "hooks";
 
 function Project() {
   const dispatch = useDispatch();
@@ -17,9 +18,7 @@ function Project() {
     dispatch(getProjects());
   }, [dispatch]);
 
-  if (projects?.status === "loading") {
-    return <div>LOADING......</div>;
-  }
+  useLoader(projects?.status);
   if (projects?.status === "rejected") {
     return <div>Failed to Load......</div>;
   }
@@ -54,4 +53,4 @@ function Project() {
   );
 }
 
-export default Project;
+export default memo(Project);

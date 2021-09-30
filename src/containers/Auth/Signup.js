@@ -5,7 +5,7 @@ import Button from "components/Button";
 import Work from "components/SVG/Work";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
-import { register as registerAction, resetState } from "./authSlice";
+import { register as registerAction } from "./authSlice";
 import { useHistory } from "react-router-dom";
 function Login() {
   const {
@@ -16,9 +16,6 @@ function Login() {
   const history = useHistory();
   const status = useSelector((state) => state?.auth?.status);
   const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(resetState());
-  }, [dispatch]);
 
   useEffect(() => {
     if (status === "success") {

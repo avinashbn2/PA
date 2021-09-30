@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, memo } from "react";
 import PropTypes from "prop-types";
 import SidebarContext from "contexts/sidebar";
 
@@ -27,4 +27,4 @@ Layout.propTypes = {
   ]),
 };
 
-export default Layout;
+export default memo(Layout);

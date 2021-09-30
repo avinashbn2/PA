@@ -8,7 +8,6 @@ export const getProjects = createAsyncThunk(
     const resp = await http("project?limit=100", {
       token: tokenSelector(getState),
     });
-    console.log("resp", resp);
     return resp.results;
   }
 );

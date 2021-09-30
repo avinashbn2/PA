@@ -1,22 +1,27 @@
 import { createSlice, createAsyncThunk, isAnyOf } from "@reduxjs/toolkit";
 import { http } from "api";
+import history from "store/utils";
 
 import { localStorageKey } from "utils/constants";
 
 export const tokenSelector = (getState) => {
-  const { auth: { tokens: { access: { token } = {} } = {} } = {} } = getState();
-  return token;
+  const state = getState();
+
+  return state?.auth?.tokens?.access?.token;
 };
 
-export const login = createAsyncThunk("auth/login", async (body) => {
-  try {
-    const resp = await http("auth/login", { body });
+export const login = createAsyncThunk(
+  "auth/login",
+  async (body, { dispatch }) => {
+    try {
+      const resp = await http("auth/login", { body });
 
-    return resp.tokens;
-  } catch (err) {
-    throw err;
+      return resp.tokens;
+    } catch (err) {
+      throw err;
+    }
   }
-});
+);
 
 export const register = createAsyncThunk("auth/register", async (body) => {
   const resp = await http("auth/register", { body });
@@ -34,6 +39,11 @@ export const authSlice = createSlice({
   reducers: {
     resetState: (state) => {
       state.status = initialState.status;
+    },
+    logout: (state) => {
+      state.tokens = null;
+      state.status = initialState.status;
+      history?.replace("/login");
     },
   },
   extraReducers: (builder, ...others) => {
@@ -60,6 +70,6 @@ export const authSlice = createSlice({
 });
 
 // Action creators are generated for each case reducer function
-export const { resetState } = authSlice.actions;
+export const { resetState, logout } = authSlice.actions;
 
 export default authSlice.reducer;

@@ -25,7 +25,7 @@ export const StyledButton = styled.button`
   justify-content: center;
   gap: 8px;
   border-bottom: 4px solid ${(p) => p.theme.colors[p.color].dark};
-  &:focus {
+  &:active {
     margin-top: 2px;
     border-bottom: 2px solid ${(p) => p.theme.colors[p.color].dark};
   }

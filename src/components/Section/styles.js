@@ -10,6 +10,7 @@ export const Container = styled.section`
   height: 100%;
   border-radius: 8px;
   padding: 8px 12px;
+  padding-bottom: 40px;
   width: 250px;
   min-width: 250px;
   background-color: #f5f9fa;

@@ -2,11 +2,23 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
 import { http } from "api";
 import { tokenSelector } from "containers/Auth/authSlice";
+import orderBy from "lodash/orderBy";
 
 const initialState = {
   data: {},
   status: "idle",
 };
+
+export const addTask = createAsyncThunk(
+  "tasks/addTask",
+  async (payload, { getState }) => {
+    const resp = await http(`task`, {
+      token: tokenSelector(getState),
+      body: payload,
+    });
+    return resp;
+  }
+);
 export const getTasks = createAsyncThunk(
   "tasks/getTasks",
   async (id, { getState }) => {
@@ -16,10 +28,12 @@ export const getTasks = createAsyncThunk(
     return resp;
   }
 );
-
 export const updateTask = createAsyncThunk(
   "tasks/updateTask",
-  async ({ id, previous, ...body }, { getState }) => {
+  async (
+    { id, previous, sourceIndex, destinationIndex, isSameSection, ...body },
+    { getState }
+  ) => {
     try {
       const resp = await http(`task/${id}`, {
         token: tokenSelector(getState),
@@ -43,22 +57,21 @@ export const taskSlice = createSlice({
       .addCase(updateTask.pending, (state, action) => {
         state.status = "loading";
 
-        const newStatus = action?.meta?.arg?.status;
-        console.log("action", action);
-        const prevTask = action?.meta?.arg?.previous;
-        const index = state.tasks[prevTask?.status]?.findIndex(
-          (t) => t._id === prevTask._id
-        );
-        // remove from old section
-        state.tasks[prevTask?.status].splice(index, 1);
-        // add to new section
-        const newTask = { ...prevTask };
-        newTask.status = newStatus;
-        if (state.tasks[newStatus]) {
-          state.tasks[newStatus].push(newTask);
-        } else {
-          state.tasks[newStatus] = [newTask];
-        }
+        // const newStatus = action?.meta?.arg?.status;
+        // const prevTask = action?.meta?.arg?.previous;
+        // const index = state.tasks[prevTask?.status]?.findIndex(
+        //   (t) => t._id === prevTask._id
+        // );
+        // // remove from old section
+        // state.tasks[prevTask?.status].splice(index, 1);
+        // // add to new section
+        // const newTask = { ...prevTask };
+        // newTask.status = newStatus;
+        // if (state.tasks[newStatus]) {
+        //   state.tasks[newStatus].push(newTask);
+        // } else {
+        //   state.tasks[newStatus] = [newTask];
+        // }
       })
       .addCase(updateTask.fulfilled, (state, action) => {
         state.status = "success";
@@ -72,7 +85,9 @@ export const taskSlice = createSlice({
           .map((s) => s.name);
         state.statusGroups = sortedStatuses;
 
-        const tasks = action.payload.tasks;
+        const tasks = orderBy(action?.payload?.tasks, ["order", "updatedAt"]);
+
+        console.log("tasks", tasks);
         const tasksByStatus = tasks.reduce((a, task) => {
           const status = `${task.status}`;
 
@@ -95,7 +110,14 @@ export const taskSlice = createSlice({
       })
       .addCase(getTasks.pending, (state) => {
         state.status = "loading";
-      });
+      })
+      .addCase(addTask.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(addTask.rejected, (state) => {
+        state.status = "Failed to add Task";
+      })
+      .addCase(addTask.fulfilled, (state) => {});
   },
 });
 

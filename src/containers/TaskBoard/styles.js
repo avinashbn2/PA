@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { device } from "utils/device";
 import Scrollbar from "react-perfect-scrollbar";
+import { Form } from "components/shared/styles";
 
 export const StyledProject = styled(Scrollbar)`
   display: flex;
@@ -32,3 +33,5 @@ export const StyledProject = styled(Scrollbar)`
     gap: 24px;
   }
 `;
+
+export const StyledTaskForm = styled(Form)``;

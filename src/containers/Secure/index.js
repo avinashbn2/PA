@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo, useEffect } from "react";
 import { Route } from "react-router-dom";
 import { routes } from "utils/routeConfig";
 import TaskBoard from "containers/TaskBoard";
@@ -11,8 +11,11 @@ const ComponentMap = {
   Project: TaskBoard,
 };
 
-function Secure() {
-  console.log("Seuycre");
+function Secure(props) {
+  console.log("props", props);
+  useEffect(() => {
+    console.log("sdrerfe");
+  }, []);
   return (
     <Layout>
       <Switch>
@@ -30,4 +33,4 @@ function Secure() {
   );
 }
 
-export default Secure;
+export default memo(Secure);

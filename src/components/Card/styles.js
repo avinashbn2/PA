@@ -20,7 +20,7 @@ export const StyledCard = styled.div`
 
   width: 100%;
   display: grid;
-  grid-template-rows: 30px 1fr 40px;
+  grid-template-rows: min-content 1fr 40px;
   grid-template-columns: 1fr;
 
   grid-template-areas: "header" "content " "footer";
@@ -39,7 +39,7 @@ export const StyledCardHeader = styled.div`
   display: flex;
   justify-content: ${(p) => p.justify};
   align-items: ${(p) => p.align};
-  padding: 8px;
+  padding: 2px 8px;
   grid-area: header;
   & > svg {
     color: ${(p) => getColor(p, "light", "text")};

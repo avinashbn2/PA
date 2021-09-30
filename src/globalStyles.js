@@ -19,6 +19,17 @@ body{
     width: 100%;
     background-color: ${(p) => getColor(p, "background")}
 }
+.modal {
+    position: absolute;
+    top: 40px;
+    left: 40px;
+    right: 40px;
+    bottom: 40px;
+    background-color: papayawhip;
+  }
+ .overlay {
+    background-color: green;
+  }
 
 
 `;
