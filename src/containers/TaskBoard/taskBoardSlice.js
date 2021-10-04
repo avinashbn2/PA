@@ -98,6 +98,11 @@ export const taskSlice = createSlice({
           }
           return a;
         }, {});
+        sortedStatuses.forEach((status) => {
+          if (!tasksByStatus[status]) {
+            tasksByStatus[status] = [];
+          }
+        });
 
         state.tasks = tasksByStatus;
       })

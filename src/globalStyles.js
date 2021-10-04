@@ -17,7 +17,7 @@ body{
 #root {
     height:100%;
     width: 100%;
-    background-color: ${(p) => getColor(p, "background")}
+    background-image: ${(p) => p.theme.colors.bgGradient};
 }
 .modal {
     position: absolute;

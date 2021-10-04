@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import Scrollbar from "react-perfect-scrollbar";
-import { Column } from "components/shared/styles";
+import { Column, Form } from "components/shared/styles";
 import { getColor } from "utils/theme";
 
 export const StyledProjects = styled(Scrollbar)`
@@ -9,6 +9,7 @@ export const StyledProjects = styled(Scrollbar)`
   grid-gap: 1em;
   grid-template-columns: repeat(auto-fit, minmax(16em, 20em));
   grid-auto-rows: 180px;
+  justify-content: center;
   overflow-y: auto;
 `;
 
@@ -27,3 +28,5 @@ export const StyledProject = styled(Column)`
   }
   gap: 1em;
 `;
+
+export const StyledProjectForm = styled(Form)``;

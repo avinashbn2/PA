@@ -1,6 +1,8 @@
 import { render, screen, fireEvent } from "@testing-library/react";
-import Button from "./index";
+import ButtonWithtoutTheme from ".";
 
+import withTheme from "components/HOCs/withTheme";
+const Button = withTheme(ButtonWithtoutTheme);
 test("renders Button", () => {
   render(<Button>Test</Button>);
 

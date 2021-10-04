@@ -59,14 +59,16 @@ function TaskBoard({ match: { params: { id } = {} } = {} }) {
           ? destTask.order + 1
           : destTask?.order - 1;
     } else {
+      console.log("destTasks", destTasks);
       if (destTasks?.length === 0) {
         newPosition = prevTask.order;
-      }
-      if (destination?.index === destTasks.length) {
+      } else if (destination?.index === destTasks?.length) {
         newPosition = destTasks?.[destination?.index - 1]?.order + 1;
       } else {
         newPosition = destTasks?.[destination?.index]?.order - 1;
       }
+
+      console.log("newPosition", newPosition);
     }
 
     try {
@@ -94,7 +96,7 @@ function TaskBoard({ match: { params: { id } = {} } = {} }) {
       <Button onClick={() => setOpenTaskModal(true)}>Add Task</Button>
       <DragDropContext onDragEnd={onDrop}>
         <StyledProject>
-          {project?.statusGroups?.map((sg) => (
+          {project?.statusGroups?.map((sg, sgIndex) => (
             <Droppable droppableId={`${project?.data?._id}=${sg}`}>
               {(provided) => (
                 <Section
