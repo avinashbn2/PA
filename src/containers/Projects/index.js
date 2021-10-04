@@ -1,4 +1,4 @@
-import React, { useEffect, memo } from "react";
+import React, { useEffect, memo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { StyledProject, StyledProjects } from "./styles";
 import "scrollbar.css";
@@ -8,11 +8,18 @@ import { useHistory } from "react-router";
 import { setProject } from "containers/TaskBoard/taskBoardSlice";
 import { getFormattedDate } from "utils/helpers";
 import { useLoader } from "hooks";
+import ProjectModal from "./ProjectModal";
 
 function Project() {
   const dispatch = useDispatch();
   const projects = useSelector((state) => state.project);
   const history = useHistory();
+
+  const [openProjectModal, setOpenProjectModal] = useState(false);
+  const [currentProjectId, setCurrentProjectId] = useState(null);
+  const onCloseModal = () => {
+    setOpenProjectModal(false);
+  };
 
   useEffect(() => {
     dispatch(getProjects());
@@ -27,13 +34,7 @@ function Project() {
   }
   return (
     <>
-      <Button
-        onClick={() =>
-          dispatch(addTask({ id: "p12", task: { id: "test", name: "testss" } }))
-        }
-      >
-        Add Project
-      </Button>
+      <Button onClick={() => setOpenProjectModal(true)}>Add Project</Button>
 
       <StyledProjects>
         {projects?.data?.map((p) => (
@@ -49,6 +50,11 @@ function Project() {
           </StyledProject>
         ))}
       </StyledProjects>
+      <ProjectModal
+        open={openProjectModal}
+        projectId={currentProjectId}
+        onClose={onCloseModal}
+      />
     </>
   );
 }

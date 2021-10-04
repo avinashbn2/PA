@@ -18,10 +18,10 @@ Modal.Content = Content;
 Modal.propTypes = {
   open: PropTypes.bool,
   onClose: PropTypes.func,
-  children: PropTypes.oneOfType(
+  children: PropTypes.oneOfType([
     PropTypes.node,
-    PropTypes.arrayOf(PropTypes.node)
-  ),
+    PropTypes.arrayOf(PropTypes.node),
+  ]),
   title: PropTypes.string,
 };
 

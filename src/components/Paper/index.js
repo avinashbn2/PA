@@ -7,10 +7,10 @@ function Paper({ children }) {
 }
 
 Paper.propTypes = {
-  children: PropTypes.oneOfType(
+  children: PropTypes.oneOfType([
     PropTypes.node,
-    PropTypes.arrayOf(PropTypes.node)
-  ),
+    PropTypes.arrayOf(PropTypes.node),
+  ]),
 };
 
 export default Paper;

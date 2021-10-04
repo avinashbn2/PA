@@ -8,7 +8,7 @@ import React, {
 import { UL, StyledSelect, Selected, Option } from "./styles";
 import { HiSelector } from "react-icons/hi";
 import useClickOutside from "hooks/useClickOutside";
-const Select = React.forwardRef(({ options, value: iValue, onChange }) => {
+const Select = ({ options, value: iValue, onChange }) => {
   const [value, setValue] = useState(iValue || options[0]);
   const [openDropdown, setOpenDropdown] = useState(false);
   const ref = useRef();
@@ -50,6 +50,6 @@ const Select = React.forwardRef(({ options, value: iValue, onChange }) => {
       {Options}
     </StyledSelect>
   );
-});
+};
 
 export default Select;

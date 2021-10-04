@@ -14,13 +14,9 @@ export const getProjects = createAsyncThunk(
 
 export const addProject = createAsyncThunk(
   "projects/addProject",
-
-  async ({ name, description }, { getState }) => {
+  async (payload, { getState }) => {
     await http("project", {
-      body: JSON.stringify({
-        name,
-        description,
-      }),
+      body: payload,
       token: tokenSelector(getState),
     });
   }
@@ -63,6 +59,10 @@ export const projectSlice = createSlice({
         state.status = "success";
         state.data = action.payload;
       })
+      .addCase(addProject.fulfilled, (state, action) => {
+        state.status = "success";
+      })
+
       .addMatcher(
         isAnyOf(getProjects.rejected, addProject.rejected),
         (state, action) => {
