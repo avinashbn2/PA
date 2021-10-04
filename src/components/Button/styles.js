@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { getColor } from "utils/theme";
 
 const fontSizes = {
   xl: "18px",
