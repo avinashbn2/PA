@@ -2,7 +2,6 @@ import React, { useCallback, useContext } from "react";
 import PropTypes from "prop-types";
 import { StyledSidebar, StyledRoutes } from "./styles";
 import ListItem from "../ListItem";
-import Brand from "components/Brand";
 import { MdMenu, MdClose } from "react-icons/md";
 import SidebarContext from "contexts/sidebar";
 import { useHistory } from "react-router-dom";

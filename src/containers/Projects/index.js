@@ -3,12 +3,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { StyledProject, StyledProjects } from "./styles";
 import "scrollbar.css";
 import Button from "components/Button";
-import { addTask, getProjects } from "./projectSlice";
+import { getProjects } from "./projectSlice";
 import { useHistory } from "react-router";
 import { setProject } from "containers/TaskBoard/taskBoardSlice";
 import { getFormattedDate } from "utils/helpers";
 import { useLoader } from "hooks";
 import ProjectModal from "./ProjectModal";
+import { FaEdit } from "react-icons/fa";
 
 function Project() {
   const dispatch = useDispatch();
@@ -16,7 +17,7 @@ function Project() {
   const history = useHistory();
 
   const [openProjectModal, setOpenProjectModal] = useState(false);
-  const [currentProjectId, setCurrentProjectId] = useState(null);
+  const [currentProject, setCurrentProject] = useState(null);
   const onCloseModal = () => {
     setOpenProjectModal(false);
   };
@@ -26,6 +27,11 @@ function Project() {
   }, [dispatch]);
 
   useLoader(projects?.status);
+  const onClickProject = (p) => (e) => {
+    e.stopPropagation();
+    setCurrentProject(p);
+    setOpenProjectModal(true);
+  };
   if (projects?.status === "rejected") {
     return <div>Failed to Load......</div>;
   }
@@ -44,6 +50,7 @@ function Project() {
               history.push(`/secure/project/${p._id}`);
             }}
           >
+            <FaEdit onClick={onClickProject(p)} className="edit" />
             <h4>{p.name}</h4>
             <h6>{p.description}</h6>
             <h6>Created on {getFormattedDate(p.createdAt)}</h6>
@@ -52,7 +59,7 @@ function Project() {
       </StyledProjects>
       <ProjectModal
         open={openProjectModal}
-        projectId={currentProjectId}
+        project={currentProject}
         onClose={onCloseModal}
       />
     </>
