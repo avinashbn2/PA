@@ -1,4 +1,4 @@
-https://img.shields.io/travis/avinashbn2/PA
+![Travis](https://img.shields.io/travis/avinashbn2/PA)
 
 ### About
 
