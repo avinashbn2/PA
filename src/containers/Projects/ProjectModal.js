@@ -8,19 +8,21 @@ import { addProject, getProjects } from "./projectSlice";
 import Modal from "components/Modal";
 import Select from "components/Select";
 
-function ProjectModal({
-  open,
-  statuses,
-  onClose,
-  projectId,
-  name,
-  description,
-}) {
+function ProjectModal({ open, statuses, onClose, project }) {
+  const { _id: projectId = null, name = "", description = "" } = project || {};
   const {
     register,
     formState: { errors },
     handleSubmit,
+    setValue,
   } = useForm();
+
+  useEffect(() => {
+    setValue("name", name);
+  }, [name, setValue]);
+  useEffect(() => {
+    setValue("description", description);
+  }, [description, setValue]);
 
   const dispatch = useDispatch();
 
