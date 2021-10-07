@@ -16,6 +16,6 @@ export const StyledLayout = styled.div`
 
 export const StyledContent = styled.main`
   transition: all 0.2s;
-  height: 100%;
+  height: max-content;
   grid-area: content;
 `;

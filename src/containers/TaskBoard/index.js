@@ -50,7 +50,6 @@ function TaskBoard({ match: { params: { id } = {} } = {} }) {
         : project?.tasks?.[destinationStatus]?.[destination.index];
     // if same board
     const isSameSection = source?.droppableId === destination?.droppableId;
-    console.log("source", source, destination);
 
     let newPosition = null;
     if (isSameSection) {
@@ -59,7 +58,6 @@ function TaskBoard({ match: { params: { id } = {} } = {} }) {
           ? destTask.order + 1
           : destTask?.order - 1;
     } else {
-      console.log("destTasks", destTasks);
       if (destTasks?.length === 0) {
         newPosition = prevTask.order;
       } else if (destination?.index === destTasks?.length) {

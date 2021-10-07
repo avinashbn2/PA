@@ -15,7 +15,6 @@ export const Container = styled.section`
   min-width: 250px;
   background-color: #f5f9fa;
   color: ${colors.active};
-  overflow: hidden;
 
   &:selection {
     background-color: aqua;
@@ -31,8 +30,7 @@ export const StyledSection = styled(Scrollbar)`
   padding-bottom: 8px;
   overflow-y: scroll;
   overflow-x: hidden;
-  height: calc(100vh - 100px);
-
+  height: calc(100vh - 10em);
   user-select: none;
 `;
 export const SectionHeader = styled(Row)`

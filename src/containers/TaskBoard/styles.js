@@ -9,10 +9,7 @@ export const StyledProject = styled(Scrollbar)`
   align-items: center;
 
   padding: 8px;
-  background-color: #fefefe;
-  height: 100%;
   overflow-x: scroll;
-
   width: 100%;
   @media ${device.mobileS} {
     flex-direction: column;
@@ -31,6 +28,7 @@ export const StyledProject = styled(Scrollbar)`
     gap: 18px;
     justify-content: flex-start;
     gap: 24px;
+    height: calc(100% - 10em);
   }
 `;
 

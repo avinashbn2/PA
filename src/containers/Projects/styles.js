@@ -4,6 +4,7 @@ import { Column, Form } from "components/shared/styles";
 import { getColor } from "utils/theme";
 
 export const StyledProjects = styled(Scrollbar)`
+  position: relative;
   margin: 1em;
   display: grid;
   grid-gap: 1em;
@@ -12,6 +13,19 @@ export const StyledProjects = styled(Scrollbar)`
 
   justify-content: center;
   overflow-y: auto;
+  padding-top: 2em;
+
+  & > svg {
+    position: absolute;
+    left: 0em;
+    top: 0;
+    font-size: 3em;
+    color: ${(p) => getColor(p, "main", "secondary")};
+    cursor: pointer;
+    &:hover {
+      color: ${(p) => getColor(p, "dark", "secondary")};
+    }
+  }
 `;
 
 export const StyledProject = styled(Column)`

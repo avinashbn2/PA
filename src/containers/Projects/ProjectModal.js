@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect } from "react";
+import PropTypes from "prop-types";
 import Input from "components/Input";
 import Button from "components/Button";
 import { StyledProjectForm } from "./styles";
@@ -6,8 +7,7 @@ import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { addProject, getProjects } from "./projectSlice";
 import Modal from "components/Modal";
-
-function ProjectModal({ open, statuses, onClose, project }) {
+function ProjectModal({ open, onClose, project }) {
   const { _id: projectId = null, name = "", description = "" } = project || {};
   const {
     register,
@@ -19,6 +19,7 @@ function ProjectModal({ open, statuses, onClose, project }) {
   useEffect(() => {
     setValue("name", name);
   }, [name, setValue]);
+
   useEffect(() => {
     setValue("description", description);
   }, [description, setValue]);
@@ -49,7 +50,6 @@ function ProjectModal({ open, statuses, onClose, project }) {
             placeholder="Enter Project Name"
             label="Project Name"
             type="text"
-            value={name}
             error={errors.name && "Required"}
           />
           <Input
@@ -57,7 +57,6 @@ function ProjectModal({ open, statuses, onClose, project }) {
             placeholder="Enter Project Description"
             label="Project Description"
             type="text"
-            value={description}
             error={errors.name && "Required"}
           />
 
@@ -69,5 +68,10 @@ function ProjectModal({ open, statuses, onClose, project }) {
     </Modal>
   );
 }
+ProjectModal.propTypes = {
+  open: PropTypes.bool,
+  onClose: PropTypes.func,
+  project: PropTypes.object,
+};
 
 export default ProjectModal;

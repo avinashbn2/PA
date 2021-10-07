@@ -2,14 +2,13 @@ import React, { useEffect, memo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { StyledProject, StyledProjects } from "./styles";
 import "scrollbar.css";
-import Button from "components/Button";
 import { getProjects } from "./projectSlice";
 import { useHistory } from "react-router";
 import { setProject } from "containers/TaskBoard/taskBoardSlice";
-import { getFormattedDate } from "utils/helpers";
 import { useLoader } from "hooks";
 import ProjectModal from "./ProjectModal";
-import { FaEdit } from "react-icons/fa";
+import { FaEdit, FaPlus } from "react-icons/fa";
+import dayjs from "utils/dayjs";
 
 function Project() {
   const dispatch = useDispatch();
@@ -21,7 +20,6 @@ function Project() {
   const onCloseModal = () => {
     setOpenProjectModal(false);
   };
-
   useEffect(() => {
     dispatch(getProjects());
   }, [dispatch]);
@@ -40,9 +38,8 @@ function Project() {
   }
   return (
     <>
-      <Button onClick={() => setOpenProjectModal(true)}>Add Project</Button>
-
       <StyledProjects>
+        <FaPlus onClick={() => setOpenProjectModal(true)} />
         {projects?.data?.map((p) => (
           <StyledProject
             onClick={() => {
@@ -53,7 +50,7 @@ function Project() {
             <FaEdit onClick={onClickProject(p)} className="edit" />
             <h4>{p.name}</h4>
             <h6>{p.description}</h6>
-            <h6>Created on {getFormattedDate(p.createdAt)}</h6>
+            <h6>Created {dayjs(p.createdAt).fromNow()}</h6>
           </StyledProject>
         ))}
       </StyledProjects>
