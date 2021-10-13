@@ -15,24 +15,24 @@ function Sidebar({ onClick, routes, activeRoute }) {
   const toggleOpen = useCallback(() => {
     setOpenSidebar((o) => !o);
   }, [setOpenSidebar]);
-  if (isMobile) {
-    return (
-      <>
-        {openSidebar ? (
-          <MdMenu onClick={toggleOpen} />
-        ) : (
-          <MdClose onClick={toggleOpen} />
-        )}
-      </>
-    );
-  }
+  // if (isMobile) {
+  //   return (
+  //     <>
+  //       {openSidebar ? (
+  //         <MdMenu onClick={toggleOpen} />
+  //       ) : (
+  //         <MdClose onClick={toggleOpen} />
+  //       )}
+  //     </>
+  //   );
+  // }
   return (
     <StyledSidebar>
-      {openSidebar ? (
+      {/* {openSidebar ? (
         <MdMenu onClick={toggleOpen} />
       ) : (
         <MdClose onClick={toggleOpen} />
-      )}
+      )} */}
       {/* <Brand title="Dashboard" /> */}
       <StyledRoutes open={openSidebar}>
         {routes.map((route) => {

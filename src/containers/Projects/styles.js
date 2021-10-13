@@ -40,7 +40,7 @@ export const StyledProject = styled(Column)`
   justify-content: space-between;
   color: ${(p) => getColor(p, "main", "text")};
 
-  background-color: ${(p) => getColor(p, "main", "secondary")};
+  background-color: ${(p) => getColor(p, "light", "secondary")};
   & > svg {
     position: absolute;
     right: 1em;

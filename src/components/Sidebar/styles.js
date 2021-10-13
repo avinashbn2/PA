@@ -3,7 +3,7 @@ import { Column } from "../shared/styles";
 import { device } from "utils/device";
 
 export const StyledSidebar = styled(Column)`
-  padding: 32px 64px;
+  padding: 6em 0;
   grid-area: sidebar;
   align-items: flex-start;
 
@@ -16,7 +16,6 @@ export const StyledSidebar = styled(Column)`
 
   @media ${device.desktopS} {
     display: flex;
-    padding: 32px 64px;
     align-items: flex-start;
 
     height: 100%;

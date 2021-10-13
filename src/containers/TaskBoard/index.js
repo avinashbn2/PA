@@ -9,19 +9,26 @@ import React, { useEffect } from "react";
 import { Draggable, Droppable } from "react-beautiful-dnd";
 import { DragDropContext } from "react-beautiful-dnd";
 
-import { FaComment, FaEllipsisV } from "react-icons/fa";
+import { Pad } from "components/shared/styles";
+import { FaComment, FaEllipsisV, FaPencilAlt, FaTrash } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 
 import { useLoader } from "hooks";
 import { StyledProject } from "./styles";
 import { getTasks, updateTask } from "./taskBoardSlice";
 import TaskModal from "./TaskModal";
+import PopupMenu from "components/PopupMenu";
 
 function TaskBoard({ match: { params: { id } = {} } = {} }) {
   const dispatch = useDispatch();
   const project = useSelector((state) => state.taskBoard);
   const [openTaskModal, setOpenTaskModal] = useState(false);
   const [currentTaskId, setCurrentTaskId] = useState(null);
+  const [openMenu, setOpenMenu] = useState(false);
+  const [anchor, setAnchor] = useState({});
+  const closeMenu = useCallback(() => {
+    setOpenMenu(false);
+  }, []);
   const onCloseModal = useCallback(() => {
     setOpenTaskModal(false);
     setCurrentTaskId(null);
@@ -35,7 +42,6 @@ function TaskBoard({ match: { params: { id } = {} } = {} }) {
 
   const onDrop = async (transfer) => {
     const { source, destination, draggableId } = transfer;
-    console.log("draggableId", draggableId);
     if (!destination?.droppableId) {
       return;
     }
@@ -91,7 +97,9 @@ function TaskBoard({ match: { params: { id } = {} } = {} }) {
   }
   return (
     <>
-      <Button onClick={() => setOpenTaskModal(true)}>Add Task</Button>
+      <Pad vsize={1} hsize={2} unit="em">
+        <Button onClick={() => setOpenTaskModal(true)}>Add Task</Button>
+      </Pad>
       <DragDropContext onDragEnd={onDrop}>
         <StyledProject>
           {project?.statusGroups?.map((sg, sgIndex) => (
@@ -118,7 +126,12 @@ function TaskBoard({ match: { params: { id } = {} } = {} }) {
                         >
                           <Card.Header justify="space-between">
                             <Card.Title>{t.name}</Card.Title>
-                            <FaEllipsisV />
+                            <FaEllipsisV
+                              onClick={(e) => {
+                                setOpenMenu(true);
+                                setAnchor({ top: e.pageY, left: e.pageX });
+                              }}
+                            />
                           </Card.Header>
                           <Card.Content>{t.description}</Card.Content>
 
@@ -144,6 +157,16 @@ function TaskBoard({ match: { params: { id } = {} } = {} }) {
           onClose={onCloseModal}
           statuses={project?.statusGroups}
         />
+        {openMenu ? (
+          <PopupMenu onClose={closeMenu} anchor={anchor}>
+            <PopupMenu.Item>
+              <FaPencilAlt /> Edit
+            </PopupMenu.Item>
+            <PopupMenu.Item>
+              <FaTrash /> Delete
+            </PopupMenu.Item>
+          </PopupMenu>
+        ) : null}
       </DragDropContext>
     </>
   );

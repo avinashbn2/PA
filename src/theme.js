@@ -15,21 +15,28 @@ export const light = {
     background: "rgba(235, 255, 240, 0.25)",
     background2: "#FCECA5",
     fieldBg: "rgb(243,243,244)",
-    bgGradient: "linear-gradient(#edfffe, #fff) ",
+    bgGradient: "#fff",
     primary: {
       main: "#cbc7fc",
       light: "#fffaff",
       dark: "#9a96c9",
     },
     secondary: {
+      main: "#34BFAF",
+      dark: "#185952",
+      light: "#3BD9C6",
+    },
+
+    secondaryold: {
       main: "#b5eecb",
       light: "#e8fffe",
       dark: "#84bb9a",
     },
     text: {
       dark: "#000",
+      main2: "#14213d",
       main: "#2c404c",
-      light: "#808080",
+      light: "#edf6f9",
     },
 
     accent: "",

@@ -37,3 +37,8 @@ export const StyledPaper = styled.div`
     box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.05), 0px 1px 1em rgba(0, 0, 0, 0.1);
   }
 `;
+
+export const Pad = styled.div`
+  padding: ${(p) =>
+    `${p.vsize || 0}${p.unit || "px"} ${p.hsize || 0}${p.unit || "px"}`};
+`;
